@@ -1,13 +1,14 @@
 // src/App.jsx
 import { useState, useRef, useEffect } from 'react'
 import './index.css'
+import ReactMarkdown from 'react-markdown'
 
 // Si tienes el logo como archivo, puedes importarlo así:
 // import logoInstitucion from './assets/logo.png'
 
 function App() {
   // Nombre del bot (puedes cambiarlo según prefieras)
-  const botName = "Billr";
+  const botName = "AeroBot";
   
   const [messages, setMessages] = useState([
     { role: 'bot', content: `¡Hola! Soy ${botName}, tu asistente virtual para la materia de Billetaje y Reservas Aeronáuticas. ¿En qué puedo ayudarte hoy?` }
@@ -16,7 +17,50 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
 
-  // El resto de tu código de App.jsx...
+  // Auto-scroll al fondo cuando llegan nuevos mensajes
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  // Función para enviar mensajes a la API de Groq
+  const sendMessage = async () => {
+    if (!input.trim()) return;
+    
+    // Añadir el mensaje del usuario a la conversación
+    const userMessage = { role: 'user', content: input };
+    setMessages(prev => [...prev, userMessage]);
+    setInput('');
+    setIsLoading(true);
+
+    try {
+      // Llamada a la API a través de nuestro backend
+      const response = await fetch('/.netlify/functions/ask-groq', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message: input })
+      });
+
+      const data = await response.json();
+      
+      // Añadir respuesta del bot
+      if (data.response) {
+        setMessages(prev => [...prev, { role: 'bot', content: data.response }]);
+      } else {
+        setMessages(prev => [...prev, { role: 'bot', content: 'Lo siento, ha ocurrido un error al procesar tu pregunta.' }]);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setMessages(prev => [...prev, { role: 'bot', content: 'Lo siento, ha ocurrido un error de conexión.' }]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="flex flex-col h-screen bg-gray-50">
@@ -53,13 +97,13 @@ function App() {
             )}
             
             <div 
-              className={`max-w-[75%] rounded-lg px-4 py-2 ${
+              className={`max-w-[75%] rounded-lg px-4 py-2 markdown ${
                 message.role === 'user' 
                   ? 'bg-airline-blue text-white rounded-br-none' 
                   : 'bg-gray-200 text-gray-800 rounded-bl-none'
               }`}
             >
-              {message.content}
+              <ReactMarkdown>{message.content}</ReactMarkdown>
             </div>
             
             {/* Avatar para el usuario */}
