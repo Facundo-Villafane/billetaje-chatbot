@@ -8,7 +8,7 @@ import ReactMarkdown from 'react-markdown'
 
 function App() {
   // Nombre del bot (puedes cambiarlo según prefieras)
-  const botName = "AeroBot";
+  const botName = "Billr";
   
   const [messages, setMessages] = useState([
     { role: 'bot', content: `¡Hola! Soy ${botName}, tu asistente virtual para la materia de Billetaje y Reservas Aeronáuticas. ¿En qué puedo ayudarte hoy?` }
@@ -77,7 +77,7 @@ function App() {
             Asistente de Billetaje y Reservas
           </h1>
           <span className="text-sm bg-white text-airline-blue px-2 py-1 rounded-full">
-            Powered by {botName}
+          Tecnicatura Universitaria en Gestión Aeronáutica
           </span>
         </div>
       </div>
