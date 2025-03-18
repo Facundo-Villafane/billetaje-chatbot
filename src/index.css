@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+/* Extender tema por defecto con colores personalizados para el chatbot */
+@theme {
+  --color-airline-blue: #0056b3;
+  --color-airline-light: #e6f7ff;
+  --color-accent: #FF6B00;
+}
+
+/* Estilos personalizados para animaciones */
+.message-appear {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.message-appear-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+/* Personalizaciones para la barra de desplazamiento */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Definir animación de escritura */
+@theme {
+  --animate-typing: typing 1.5s steps(40, end);
+  
+  @keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+  }
+}
+
+/* Configurar fuentes y variables globales */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* Estilos para el markdown */
+.markdown ul {
+  list-style-type: disc;
+  margin-left: 1.5rem;
+}
+
+.markdown ol {
+  list-style-type: decimal;
+  margin-left: 1.5rem;
+}
+
+.markdown p {
+  margin-bottom: 0.5rem;
+}
+
+.markdown h1, .markdown h2, .markdown h3 {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.markdown h1 {
+  font-size: 1.25rem;
+}
+
+.markdown h2 {
+  font-size: 1.1rem;
+}
+
+.markdown code {
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: monospace;
+}
