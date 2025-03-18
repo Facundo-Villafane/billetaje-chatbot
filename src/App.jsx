@@ -1,65 +1,41 @@
 // src/App.jsx
 import { useState, useRef, useEffect } from 'react'
-import ReactMarkdown from 'react-markdown';
 import './index.css'
 
+// Si tienes el logo como archivo, puedes importarlo así:
+// import logoInstitucion from './assets/logo.png'
+
 function App() {
+  // Nombre del bot (puedes cambiarlo según prefieras)
+  const botName = "Billr";
+  
   const [messages, setMessages] = useState([
-    { role: 'bot', content: '¡Hola! Soy tu asistente para la materia de Billetaje y Reservas Aeronáuticas. ¿En qué puedo ayudarte hoy?' }
+    { role: 'bot', content: `¡Hola! Soy ${botName}, tu asistente virtual para la materia de Billetaje y Reservas Aeronáuticas. ¿En qué puedo ayudarte hoy?` }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
 
-  // Auto-scroll al fondo cuando llegan nuevos mensajes
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
-
-  // Función para enviar mensajes a la API de Groq
-  const sendMessage = async () => {
-    if (!input.trim()) return;
-    
-    // Añadir el mensaje del usuario a la conversación
-    const userMessage = { role: 'user', content: input };
-    setMessages(prev => [...prev, userMessage]);
-    setInput('');
-    setIsLoading(true);
-
-    try {
-      // Llamada a la API a través de nuestro backend
-      const response = await fetch('/.netlify/functions/ask-groq', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ message: input })
-      });
-
-      const data = await response.json();
-      
-      // Añadir respuesta del bot
-      if (data.response) {
-        setMessages(prev => [...prev, { role: 'bot', content: data.response }]);
-      } else {
-        setMessages(prev => [...prev, { role: 'bot', content: 'Lo siento, ha ocurrido un error al procesar tu pregunta.' }]);
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      setMessages(prev => [...prev, { role: 'bot', content: 'Lo siento, ha ocurrido un error de conexión.' }]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  // El resto de tu código de App.jsx...
 
   return (
     <div className="flex flex-col h-screen bg-gray-50">
+      {/* Header con logo institucional */}
       <div className="bg-airline-blue py-3 px-4 text-white">
-        <h1 className="text-xl font-semibold">Asistente de Billetaje y Reservas</h1>
+        <div className="flex items-center justify-between">
+          <h1 className="text-xl font-semibold flex items-center">
+            {/* Logo - puedes usar una URL o un archivo importado */}
+            <img 
+              src="https://sied.utn.edu.ar/pluginfile.php/1/theme_adaptable/adaptablemarkettingimages/0/logoutnwhite.png" 
+              alt="Logo Institucional" 
+              className="h-8 mr-2"
+            />
+            Asistente de Billetaje y Reservas
+          </h1>
+          <span className="text-sm bg-white text-airline-blue px-2 py-1 rounded-full">
+            Powered by {botName}
+          </span>
+        </div>
       </div>
       
       {/* Área de mensajes */}
@@ -69,20 +45,37 @@ function App() {
             key={index} 
             className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
           >
+            {/* Avatar para el bot */}
+            {message.role === 'bot' && (
+              <div className="w-8 h-8 rounded-full bg-airline-blue text-white flex items-center justify-center mr-2 flex-shrink-0">
+                {botName.charAt(0)}
+              </div>
+            )}
+            
             <div 
-              className={`max-w-[75%] rounded-lg px-4 py-2 markdown ${
+              className={`max-w-[75%] rounded-lg px-4 py-2 ${
                 message.role === 'user' 
                   ? 'bg-airline-blue text-white rounded-br-none' 
                   : 'bg-gray-200 text-gray-800 rounded-bl-none'
               }`}
             >
-              <ReactMarkdown>{message.content}</ReactMarkdown>
+              {message.content}
             </div>
+            
+            {/* Avatar para el usuario */}
+            {message.role === 'user' && (
+              <div className="w-8 h-8 rounded-full bg-gray-400 text-white flex items-center justify-center ml-2 flex-shrink-0">
+                U
+              </div>
+            )}
           </div>
         ))}
         
         {isLoading && (
           <div className="flex justify-start">
+            <div className="w-8 h-8 rounded-full bg-airline-blue text-white flex items-center justify-center mr-2 flex-shrink-0">
+              {botName.charAt(0)}
+            </div>
             <div className="bg-gray-200 text-gray-800 rounded-lg rounded-bl-none px-4 py-2">
               <div className="flex space-x-2">
                 <div className="w-2 h-2 rounded-full bg-gray-500 animate-bounce"></div>
@@ -104,7 +97,7 @@ function App() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
-            placeholder="Escribe tu pregunta aquí..."
+            placeholder={`Pregúntale a ${botName} sobre la materia...`}
             className="flex-1 border border-gray-300 rounded-l-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-airline-blue"
           />
           <button
@@ -114,6 +107,9 @@ function App() {
           >
             Enviar
           </button>
+        </div>
+        <div className="text-xs text-center mt-2 text-gray-500">
+          Desarrollado para la cátedra de Billetaje y Reservas | Prof. Facundo Villafañe
         </div>
       </div>
     </div>
