@@ -1,4 +1,8 @@
-# Billr - Asistente Virtual para Billetaje y Reservas
+# Billr - Asistente Virtual para Billetaje y Reservas [View](https://billr.netlify.com/)
+
+![Estado del Proyecto](https://img.shields.io/badge/Estado-En%20Desarrollo-brightgreen)
+![Versión](https://img.shields.io/badge/Versión-1.4.0-blue)
+![Licencia](https://img.shields.io/badge/Licencia-MIT-green)
 
 ## Descripción
 Billr es un chatbot inteligente diseñado específicamente para la materia de Billetaje y Reservas Aeronáuticas. Este asistente virtual ayuda a los estudiantes a obtener información sobre sistemas de reservas aéreos, revenue management, atención al cliente en aeropuertos y detalles administrativos del curso.

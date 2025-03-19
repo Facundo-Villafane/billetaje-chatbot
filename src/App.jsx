@@ -1,13 +1,10 @@
-// src/App.jsx
+
 import { useState, useRef, useEffect } from 'react'
 import './index.css'
 import ReactMarkdown from 'react-markdown'
 
-// Si tienes el logo como archivo, puedes importarlo así:
-// import logoInstitucion from './assets/logo.png'
-
 function App() {
-  // Nombre del bot (puedes cambiarlo según prefieras)
+  // Nombre del bot 
   const botName = "Billr";
   
 // Cargar mensajes desde localStorage o usar el mensaje de bienvenida
