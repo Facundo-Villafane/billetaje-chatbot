@@ -10,12 +10,27 @@ function App() {
   // Nombre del bot (puedes cambiarlo según prefieras)
   const botName = "Billr";
   
-  const [messages, setMessages] = useState([
-    { role: 'bot', content: `¡Hola! Soy ${botName}, tu asistente virtual para la materia de Billetaje y Reservas Aeronáuticas. ¿En qué puedo ayudarte hoy?` }
-  ]);
-  const [input, setInput] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const messagesEndRef = useRef(null);
+// Cargar mensajes desde localStorage o usar el mensaje de bienvenida
+const [messages, setMessages] = useState(() => {
+  const savedMessages = localStorage.getItem('chatMessages');
+  if (savedMessages) {
+    return JSON.parse(savedMessages);
+  } else {
+    return [{ 
+      role: 'bot', 
+      content: `¡Hola! Soy ${botName}, tu asistente virtual para la materia de Billetaje y Reservas. ¿En qué puedo ayudarte hoy?` 
+    }];
+  }
+});
+
+const [input, setInput] = useState('');
+const [isLoading, setIsLoading] = useState(false);
+const messagesEndRef = useRef(null);
+
+// Guardar mensajes en localStorage cuando cambian
+useEffect(() => {
+  localStorage.setItem('chatMessages', JSON.stringify(messages));
+}, [messages]);
 
   // Auto-scroll al fondo cuando llegan nuevos mensajes
   const scrollToBottom = () => {
@@ -25,6 +40,16 @@ function App() {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  // Función para limpiar el historial
+  const clearChat = () => {
+    const initialMessage = { 
+      role: 'bot', 
+      content: `¡Hola! Soy ${botName}, tu asistente virtual para la materia de Billetaje y Reservas. ¿En qué puedo ayudarte hoy?` 
+    };
+    setMessages([initialMessage]);
+    localStorage.setItem('chatMessages', JSON.stringify([initialMessage]));
+  };
 
   // Función para enviar mensajes a la API de Groq
   const sendMessage = async () => {
@@ -79,6 +104,13 @@ function App() {
           <span className="text-xs sm:text-sm bg-white text-airline-blue px-2 py-1 rounded-full text-center">
           Tecnicatura Universitaria en Gestión Aeronáutica
           </span>
+          <button 
+              onClick={clearChat} 
+              className="ml-2 text-xs bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded-full"
+              title="Limpiar conversación"
+            >
+              Limpiar
+            </button>
         </div>
       </div>
       
@@ -109,7 +141,7 @@ function App() {
             {/* Avatar para el usuario */}
             {message.role === 'user' && (
               <div className="w-8 h-8 rounded-full bg-gray-400 text-white flex items-center justify-center ml-2 flex-shrink-0">
-                U
+              🙂
               </div>
             )}
           </div>
