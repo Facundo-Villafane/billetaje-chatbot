@@ -27,7 +27,7 @@ AeroBot es un chatbot inteligente diseñado específicamente para la materia de 
 ### Pasos de instalación
 1. Clona el repositorio:
    ```bash
-   git clone https://github.com/TU_USUARIO/billetaje-chatbot.git
+   git clone https://github.com/Facundo-Villafane/billetaje-chatbot.git
    cd billetaje-chatbot
    ```
 
