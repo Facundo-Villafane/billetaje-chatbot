@@ -66,17 +66,17 @@ function App() {
     <div className="flex flex-col h-screen bg-gray-50">
       {/* Header con logo institucional */}
       <div className="bg-airline-blue py-3 px-4 text-white">
-        <div className="flex items-center justify-between">
-          <h1 className="text-xl font-semibold flex items-center">
+        <div className="flex flex-col sm:flex-row items-center justify-between">
+          <h1 className="text-xl font-semibold flex items-center mb-2 sm:mb-0">
             {/* Logo - puedes usar una URL o un archivo importado */}
             <img 
               src="https://sied.utn.edu.ar/pluginfile.php/1/theme_adaptable/adaptablemarkettingimages/0/logoutnwhite.png" 
               alt="Logo Institucional" 
-              className="h-8 mr-2"
+              className="h-6 sm:h-8 mr-2"
             />
-            Asistente de Billetaje y Reservas
+            <span className="text-lg sm:text-xl">Asistente de Billetaje y Reservas</span>
           </h1>
-          <span className="text-sm bg-white text-airline-blue px-2 py-1 rounded-full">
+          <span className="text-xs sm:text-sm bg-white text-airline-blue px-2 py-1 rounded-full text-center">
           Tecnicatura Universitaria en Gestión Aeronáutica
           </span>
         </div>
