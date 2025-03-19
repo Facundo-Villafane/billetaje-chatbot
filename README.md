@@ -1,7 +1,7 @@
-# AeroBot - Asistente Virtual para Billetaje y Reservas
+# Billr - Asistente Virtual para Billetaje y Reservas
 
 ## Descripción
-AeroBot es un chatbot inteligente diseñado específicamente para la materia de Billetaje y Reservas Aeronáuticas. Este asistente virtual ayuda a los estudiantes a obtener información sobre sistemas de reservas aéreos, revenue management, atención al cliente en aeropuertos y detalles administrativos del curso.
+Billr es un chatbot inteligente diseñado específicamente para la materia de Billetaje y Reservas Aeronáuticas. Este asistente virtual ayuda a los estudiantes a obtener información sobre sistemas de reservas aéreos, revenue management, atención al cliente en aeropuertos y detalles administrativos del curso.
 
 ## Características
 - 💬 Interfaz de chat intuitiva y responsive
@@ -86,4 +86,4 @@ Para mantener el chatbot actualizado:
 Las contribuciones son bienvenidas. Por favor, abre un issue antes de enviar un pull request.
 
 ## Autor
-Desarrollado por Prof. Facundo Villafañe para la cátedra de Billetaje y Reservas Aeronáuticas.
+Desarrollado por Prof. Facundo Villafañe para la cátedra de Billetaje y Reservas.
