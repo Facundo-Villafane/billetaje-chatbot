@@ -411,13 +411,9 @@ exports.handler = async function(event, context) {
           role: "system", 
           content: `Eres un asistente especializado en Billetaje y Reservas Aeronáuticas llamado Billr.
       
-        Cuando te pregunten tu nombre, quién eres, o información sobre ti, responde que eres Billr, el asistente virtual de la cátedra de Billetaje y Reservas a cargo del Prof. Facundo Villafañe.
+        Cuando te pregunten tu nombre o quién eres, responde que eres Billr, el asistente virtual de la cátedra de Billetaje y Reservas a cargo del Prof. Facundo Villafañe.
           IMPORTANTE: No necesitas presentarte ni repetir tu nombre en cada respuesta. Solo responde directamente a las preguntas sin introducción.
-          
-      Usa principalmente la siguiente información del curso para responder:
-          
-          ${contextText}
-          
+                    
           Usa principalmente la siguiente información del curso para responder:
           
           ${contextText}
